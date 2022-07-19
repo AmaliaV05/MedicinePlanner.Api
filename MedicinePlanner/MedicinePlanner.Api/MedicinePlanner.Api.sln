@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32630.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicinePlanner.Api", "MedicinePlanner.Api.csproj", "{40D57B40-DD7C-4482-BA7A-4257BB69AC27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MedicinePlanner.Api", "MedicinePlanner.Api.csproj", "{40D57B40-DD7C-4482-BA7A-4257BB69AC27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicinePlanner.Data", "..\MedicinePlanner.Data\MedicinePlanner.Data.csproj", "{CCE3A487-A0F0-487B-A58B-DC89954AD39D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicinePlanner.BusinessLogic", "..\MedicinePlanner.BusinessLogic\MedicinePlanner.BusinessLogic.csproj", "{2BEEC736-4BBB-4C5F-95F1-18B26462BA10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{40D57B40-DD7C-4482-BA7A-4257BB69AC27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40D57B40-DD7C-4482-BA7A-4257BB69AC27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40D57B40-DD7C-4482-BA7A-4257BB69AC27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCE3A487-A0F0-487B-A58B-DC89954AD39D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCE3A487-A0F0-487B-A58B-DC89954AD39D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCE3A487-A0F0-487B-A58B-DC89954AD39D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCE3A487-A0F0-487B-A58B-DC89954AD39D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BEEC736-4BBB-4C5F-95F1-18B26462BA10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BEEC736-4BBB-4C5F-95F1-18B26462BA10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BEEC736-4BBB-4C5F-95F1-18B26462BA10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BEEC736-4BBB-4C5F-95F1-18B26462BA10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
