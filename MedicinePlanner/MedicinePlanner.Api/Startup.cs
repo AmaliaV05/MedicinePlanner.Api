@@ -1,3 +1,4 @@
+using MedicinePlanner.Api.Extensions;
 using MedicinePlanner.Data.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +30,8 @@ namespace MedicinePlanner.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MedicinePlanner.Api", Version = "v1" });
             });
+
+            services.AddServicesExtension();
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

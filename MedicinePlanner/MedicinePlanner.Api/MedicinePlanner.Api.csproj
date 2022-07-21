@@ -12,8 +12,4 @@
     <ProjectReference Include="..\MedicinePlanner.BusinessLogic\MedicinePlanner.BusinessLogic.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>
