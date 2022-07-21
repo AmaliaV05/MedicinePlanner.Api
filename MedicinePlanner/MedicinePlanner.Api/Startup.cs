@@ -32,6 +32,7 @@ namespace MedicinePlanner.Api
             });
 
             services.AddServicesExtension();
+            services.AddMappingProfiles();
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

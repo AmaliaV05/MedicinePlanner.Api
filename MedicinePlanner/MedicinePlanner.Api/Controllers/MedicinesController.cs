@@ -1,5 +1,5 @@
-﻿using MedicinePlanner.BusinessLogic.Interfaces;
-using MedicinePlanner.Data.Models;
+﻿using MedicinePlanner.BusinessLogic.DTOs;
+using MedicinePlanner.BusinessLogic.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -29,15 +29,15 @@ namespace MedicinePlanner.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> PutMedicine(int idMedicine, Medicine medicine)
+        public async Task<IActionResult> PutMedicine(int idMedicine, MedicineDTO medicineDTO)
         {
-            return Ok(await _medicineService.UpdateMedicine(idMedicine, medicine));
+            return Ok(await _medicineService.UpdateMedicine(idMedicine, medicineDTO));
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostMedicine(Medicine medicine)
+        public async Task<IActionResult> PostMedicine(MedicineDTO medicineDTO)
         {
-            return Ok(await _medicineService.AddMedicine(medicine));
+            return Ok(await _medicineService.AddMedicine(medicineDTO));
         }
     }
 }
