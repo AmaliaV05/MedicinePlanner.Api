@@ -8,6 +8,7 @@ namespace MedicinePlanner.Api.Extensions
         public static IServiceCollection AddMappingProfiles(this IServiceCollection services)
         {
             services.AddAutoMapper(typeof(MappingMedicine));
+            services.AddAutoMapper(typeof(MappingStock));
 
             return services;
         }

@@ -1,16 +1,14 @@
 ﻿using MedicinePlanner.Data.Models.Enum.Utils;
 using System;
 
-namespace MedicinePlanner.Data.Models
+namespace MedicinePlanner.BusinessLogic.DTOs
 {
-    public class DailyPlanning
+    public class DailyPlanningDTO
     {
         public int Id { get; set; }
         public DateTime IntakeTime { get; set; }
         public int Dosage { get; set; }
         public bool Consumed { get; set; }
         public PlanningMessage Message { get; set; }
-        public Planning Planning { get; set; }
-        public Notification Notification { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace MedicinePlanner.Data.Models
 {
-    public class Balance
+    public abstract class Balance
     {
         public int Id { get; set; }
         public int PillsNumber { get; set; }

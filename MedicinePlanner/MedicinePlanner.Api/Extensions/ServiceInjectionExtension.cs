@@ -8,7 +8,8 @@ namespace MedicinePlanner.Api.Extensions
     {
         public static IServiceCollection AddServicesExtension(this IServiceCollection services)
         {
-            services.AddScoped<IMedicineService, MedicineService>();           
+            services.AddScoped<IMedicineService, MedicineService>();
+            services.AddScoped<IStockService, StockService>();
 
             return services;
         }
