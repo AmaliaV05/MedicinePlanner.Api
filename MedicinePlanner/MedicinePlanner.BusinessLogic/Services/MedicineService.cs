@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MedicinePlanner.BusinessLogic.DTOs;
+using MedicinePlanner.BusinessLogic.Exceptions;
 using MedicinePlanner.BusinessLogic.Interfaces;
 using MedicinePlanner.Data.Data;
 using MedicinePlanner.Data.Models;
@@ -27,7 +28,7 @@ namespace MedicinePlanner.BusinessLogic.Services
             var medicine = await _context.Medicines.FindAsync(idMedicine);
             if(medicine == null)
             {
-                throw new Exception();
+                throw new IdNotFoundException(nameof(Medicine), idMedicine);
             }
             return _mapper.Map<MedicineDTO>(medicine);
         }

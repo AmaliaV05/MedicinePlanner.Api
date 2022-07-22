@@ -1,4 +1,5 @@
 using MedicinePlanner.Api.Extensions;
+using MedicinePlanner.Api.Middlewares;
 using MedicinePlanner.Data.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -45,6 +46,8 @@ namespace MedicinePlanner.Api
             }
 
             app.UseHttpsRedirection();
+
+            app.UseMiddleware<CustomExceptionMiddleware>();
 
             app.UseRouting();
 
