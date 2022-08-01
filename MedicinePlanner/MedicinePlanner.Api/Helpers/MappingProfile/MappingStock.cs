@@ -8,6 +8,7 @@ namespace MedicinePlanner.Api.Helpers.MappingProfile
     {
         public MappingStock()
         {
+            CreateMap<Stock, StockDTO>();
             CreateMap<LoadingStock, LoadingStockDTO>();
             CreateMap<UnloadingStock, UnloadingStockDTO>();
         }

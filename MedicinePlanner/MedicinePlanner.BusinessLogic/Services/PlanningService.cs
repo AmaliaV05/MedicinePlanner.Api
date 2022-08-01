@@ -27,14 +27,16 @@ namespace MedicinePlanner.BusinessLogic.Services
         {
             var planning = await _context.Medicines
                 .Where(m => m.Id == idMedicine)
+                .OrderBy(m => m.Id)
                 .Include(m => m.Plannings)
                 .ThenInclude(p => p.DailyPlannings)
-                .LastOrDefaultAsync();
+                .AsSplitQuery()
+                .FirstOrDefaultAsync();
             if (planning == null)
             {
                 throw new IdNotFoundException(nameof(Medicine), idMedicine);
             }
-            return _mapper.Map<PlanningDTO>(planning);
+            return _mapper.Map<PlanningDTO>(planning.Plannings.Last());
         }
 
         public async Task<IEnumerable<PlanningDTO>> GetPlannings()
@@ -57,20 +59,22 @@ namespace MedicinePlanner.BusinessLogic.Services
             return _mapper.Map<PlanningDTO>(planning);
         }
 
-        public async Task<DailyPlanningDTO> ConsumeMedicine(int idDailyPlanning)
+        public async Task<PlanningDTO> ApproveNewPlanning(int idMedicine)
         {
-            var dailyPlanning = await _context.DailyPlannings
-                .Where(d => d.Id == idDailyPlanning)
+            var medicine = await _context.Medicines
+                .Where(m => m.Id == idMedicine)
+                .Include(p => p.Plannings)
                 .FirstOrDefaultAsync();
-            if (dailyPlanning == null)
+            var newPlanning = new Planning
             {
-                throw new IdNotFoundException(nameof(DailyPlanning), idDailyPlanning);
-            }
-            dailyPlanning.Consumed = true;
-            dailyPlanning.Message = PlanningMessage.Consumed;
-            _context.Entry(dailyPlanning).State = EntityState.Modified;
+                StartDate = medicine.Plannings.Last().PauseEndDate.Value.AddDays(1),
+                EndDate = medicine.Plannings.Last().PauseEndDate.Value.AddDays(1) + medicine.Plannings.Last().EndDate.Subtract(medicine.Plannings.Last().StartDate),
+                PauseEndDate = medicine.Plannings.Last().PauseEndDate.Value.AddDays(1) + medicine.Plannings.Last().PauseEndDate.Value.Subtract(medicine.Plannings.Last().EndDate),
+                Medicine = medicine
+            };
+            _context.Plannings.Add(newPlanning);
             await _context.SaveChangesAsync();
-            return _mapper.Map<DailyPlanningDTO>(dailyPlanning);
+            return _mapper.Map<PlanningDTO>(medicine.Plannings.Last());
         }
 
         public async Task<IEnumerable<DailyPlanningDTO>> AddDailyPlanning(int idPlanning, IEnumerable<DailyPlanningDTO> dailyPlanningDTO)
@@ -89,8 +93,7 @@ namespace MedicinePlanner.BusinessLogic.Services
                 dailyPlanning.Consumed = false;
                 dailyPlanning.Message = PlanningMessage.NotConsumed;
                 planning.DailyPlannings.Add(dailyPlanning);
-            }
-            
+            }            
             await _context.SaveChangesAsync();
             return _mapper.Map<IEnumerable<DailyPlanningDTO>>(dailyPlannings);
         }

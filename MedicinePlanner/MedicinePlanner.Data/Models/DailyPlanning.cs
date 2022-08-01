@@ -11,6 +11,5 @@ namespace MedicinePlanner.Data.Models
         public bool Consumed { get; set; }
         public PlanningMessage Message { get; set; }
         public Planning Planning { get; set; }
-        public Notification Notification { get; set; }
     }
 }

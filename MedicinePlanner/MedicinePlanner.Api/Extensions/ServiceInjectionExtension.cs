@@ -11,6 +11,7 @@ namespace MedicinePlanner.Api.Extensions
             services.AddScoped<IMedicineService, MedicineService>();
             services.AddScoped<IStockService, StockService>();
             services.AddScoped<IPlanningService, PlanningService>();
+            services.AddScoped<INotificationService, NotificationService>();
 
             return services;
         }

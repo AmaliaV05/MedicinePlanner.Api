@@ -14,7 +14,6 @@ namespace MedicinePlanner.Data.Data
         public DbSet<LoadingStock> LoadingStocks { get; set; }
         public DbSet<UnloadingStock> UnloadingStocks { get; set; }
         public DbSet<Planning> Plannings { get; set; }
-        public DbSet<Notification> Notifications { get; set; }
         public DbSet<DailyPlanning> DailyPlannings { get; set; }
     }
 }

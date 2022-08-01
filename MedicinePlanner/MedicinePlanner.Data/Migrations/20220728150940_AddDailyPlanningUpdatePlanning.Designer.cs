@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedicinePlanner.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220719143748_UpdatePlanning")]
-    partial class UpdatePlanning
+    [Migration("20220728150940_AddDailyPlanningUpdatePlanning")]
+    partial class AddDailyPlanningUpdatePlanning
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,21 +31,19 @@ namespace MedicinePlanner.Data.Migrations
                     b.Property<bool>("Consumed")
                         .HasColumnType("bit");
 
+                    b.Property<int>("Dosage")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("IntakeTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Message")
                         .HasColumnType("int");
 
-                    b.Property<int?>("NotificationId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("PlanningId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("NotificationId");
 
                     b.HasIndex("PlanningId");
 
@@ -94,31 +92,6 @@ namespace MedicinePlanner.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Medicines");
-                });
-
-            modelBuilder.Entity("MedicinePlanner.Data.Models.Notification", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("MedicineId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PlanningId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MedicineId");
-
-                    b.HasIndex("PlanningId");
-
-                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("MedicinePlanner.Data.Models.Planning", b =>
@@ -193,15 +166,9 @@ namespace MedicinePlanner.Data.Migrations
 
             modelBuilder.Entity("MedicinePlanner.Data.Models.DailyPlanning", b =>
                 {
-                    b.HasOne("MedicinePlanner.Data.Models.Notification", "Notification")
-                        .WithMany()
-                        .HasForeignKey("NotificationId");
-
                     b.HasOne("MedicinePlanner.Data.Models.Planning", "Planning")
                         .WithMany("DailyPlannings")
                         .HasForeignKey("PlanningId");
-
-                    b.Navigation("Notification");
 
                     b.Navigation("Planning");
                 });
@@ -213,21 +180,6 @@ namespace MedicinePlanner.Data.Migrations
                         .HasForeignKey("StockId");
 
                     b.Navigation("Stock");
-                });
-
-            modelBuilder.Entity("MedicinePlanner.Data.Models.Notification", b =>
-                {
-                    b.HasOne("MedicinePlanner.Data.Models.Medicine", "Medicine")
-                        .WithMany("Notifications")
-                        .HasForeignKey("MedicineId");
-
-                    b.HasOne("MedicinePlanner.Data.Models.Planning", "Planning")
-                        .WithMany()
-                        .HasForeignKey("PlanningId");
-
-                    b.Navigation("Medicine");
-
-                    b.Navigation("Planning");
                 });
 
             modelBuilder.Entity("MedicinePlanner.Data.Models.Planning", b =>
@@ -261,8 +213,6 @@ namespace MedicinePlanner.Data.Migrations
 
             modelBuilder.Entity("MedicinePlanner.Data.Models.Medicine", b =>
                 {
-                    b.Navigation("Notifications");
-
                     b.Navigation("Plannings");
 
                     b.Navigation("Stock");

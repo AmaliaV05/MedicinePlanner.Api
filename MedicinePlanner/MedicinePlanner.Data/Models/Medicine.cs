@@ -12,6 +12,5 @@ namespace MedicinePlanner.Data.Models
         public DateTime? ExpirationDate { get; set; }
         public Stock Stock { get; set; }
         public List<Planning> Plannings { get; set; }
-        public List<Notification> Notifications { get; set; }
     }
 }

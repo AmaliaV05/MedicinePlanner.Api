@@ -45,12 +45,13 @@ namespace MedicinePlanner.BusinessLogic.Services
             var unloadingStock = new UnloadingStock
             {
                 PillsNumber = dailyPlanning.Dosage,
-                UnloadingDate = DateTime.UtcNow
+                UnloadingDate = DateTime.Now
             };
             dailyPlanning.Planning.Medicine.Stock.UnloadingStocks.Add(unloadingStock);
             dailyPlanning.Planning.Medicine.Stock.Total -= dailyPlanning.Dosage;
             dailyPlanning.Consumed = true;
             dailyPlanning.Message = PlanningMessage.Consumed;
+            _context.Entry(dailyPlanning).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             var dailyPlanningDTO = _mapper.Map<DailyPlanningDTO>(dailyPlanning);
             serviceResponse.ResponseOk = dailyPlanningDTO;
@@ -70,7 +71,7 @@ namespace MedicinePlanner.BusinessLogic.Services
             var loadingStock = new LoadingStock
             {
                 PillsNumber = pillsNumber,
-                LoadingDate = DateTime.UtcNow
+                LoadingDate = DateTime.Now
             };
             actualStock.LoadingStocks.Add(loadingStock);
             actualStock.Total += pillsNumber;
@@ -98,7 +99,7 @@ namespace MedicinePlanner.BusinessLogic.Services
             var unloadingStock = new UnloadingStock 
             {
                 PillsNumber = pillsNumber,
-                UnloadingDate = DateTime.UtcNow
+                UnloadingDate = DateTime.Now
             };
             actualStock.UnloadingStocks.Add(unloadingStock);
             actualStock.Total -= pillsNumber;

@@ -9,5 +9,6 @@ namespace MedicinePlanner.BusinessLogic.DTOs
         public string Name { get; set; }
         public MedicineType Type { get; set; }
         public DateTime? ExpirationDate { get; set; }
+        public StockDTO Stock { get; set; }
     }
 }

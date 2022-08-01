@@ -3,10 +3,18 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MedicinePlanner.Data.Migrations
 {
-    public partial class AddDailyPlanning : Migration
+    public partial class AddDailyPlanningUpdatePlanning : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropColumn(
+                name: "Consumed",
+                table: "Plannings");
+
+            migrationBuilder.DropColumn(
+                name: "Message",
+                table: "Plannings");
+
             migrationBuilder.CreateTable(
                 name: "DailyPlannings",
                 columns: table => new
@@ -14,20 +22,14 @@ namespace MedicinePlanner.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IntakeTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Dosage = table.Column<int>(type: "int", nullable: false),
                     Consumed = table.Column<bool>(type: "bit", nullable: false),
                     Message = table.Column<int>(type: "int", nullable: false),
-                    PlanningId = table.Column<int>(type: "int", nullable: true),
-                    NotificationId = table.Column<int>(type: "int", nullable: true)
+                    PlanningId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DailyPlannings", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DailyPlannings_Notifications_NotificationId",
-                        column: x => x.NotificationId,
-                        principalTable: "Notifications",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_DailyPlannings_Plannings_PlanningId",
                         column: x => x.PlanningId,
@@ -35,11 +37,6 @@ namespace MedicinePlanner.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DailyPlannings_NotificationId",
-                table: "DailyPlannings",
-                column: "NotificationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DailyPlannings_PlanningId",
@@ -51,6 +48,20 @@ namespace MedicinePlanner.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "DailyPlannings");
+
+            migrationBuilder.AddColumn<bool>(
+                name: "Consumed",
+                table: "Plannings",
+                type: "bit",
+                nullable: false,
+                defaultValue: false);
+
+            migrationBuilder.AddColumn<int>(
+                name: "Message",
+                table: "Plannings",
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
         }
     }
 }

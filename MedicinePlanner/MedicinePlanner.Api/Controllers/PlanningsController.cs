@@ -1,6 +1,7 @@
 ﻿using MedicinePlanner.BusinessLogic.DTOs;
 using MedicinePlanner.BusinessLogic.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MedicinePlanner.Api.Controllers
@@ -34,10 +35,16 @@ namespace MedicinePlanner.Api.Controllers
             return Ok(await _planningService.AddPlanning(idMedicine, planningDTO));
         }
 
-        [HttpPut]
-        public async Task<IActionResult> ConsumeMedicine(int idDailyPlanning)
+        [HttpPost("Approve-Planning")]
+        public async Task<IActionResult> ApproveNewPlanning(int idMedicine)
         {
-            return Ok(await _planningService.ConsumeMedicine(idDailyPlanning));
+            return Ok(await _planningService.ApproveNewPlanning(idMedicine));
+        }
+
+        [HttpPost("Daily-Planning")]
+        public async Task<IActionResult> PostDailyPlanning(int idPlanning, IEnumerable<DailyPlanningDTO> dailyPlanningDTO)
+        {
+            return Ok(await _planningService.AddDailyPlanning(idPlanning, dailyPlanningDTO));
         }
     }
 }

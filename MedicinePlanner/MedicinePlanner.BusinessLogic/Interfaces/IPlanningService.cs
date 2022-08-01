@@ -9,7 +9,7 @@ namespace MedicinePlanner.BusinessLogic.Interfaces
         Task<PlanningDTO> GetPlanning(int idMedicine);
         Task<IEnumerable<PlanningDTO>> GetPlannings();
         Task<PlanningDTO> AddPlanning(int idMedicine, PlanningDTO planningDTO);
-        Task<DailyPlanningDTO> ConsumeMedicine(int idDailyPlanning);
+        Task<PlanningDTO> ApproveNewPlanning(int idMedicine);
         Task<IEnumerable<DailyPlanningDTO>> AddDailyPlanning(int idPlanning, IEnumerable<DailyPlanningDTO> dailyPlanningDTO);
     }
 }

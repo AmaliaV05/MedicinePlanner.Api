@@ -25,7 +25,10 @@ namespace MedicinePlanner.BusinessLogic.Services
 
         public async Task<MedicineDTO> GetMedicine(int idMedicine)
         {
-            var medicine = await _context.Medicines.FindAsync(idMedicine);
+            var medicine = await _context.Medicines
+                .Where(m => m.Id == idMedicine)
+                .Include(m => m.Stock)
+                .FirstOrDefaultAsync();
             if(medicine == null)
             {
                 throw new IdNotFoundException(nameof(Medicine), idMedicine);
@@ -36,6 +39,7 @@ namespace MedicinePlanner.BusinessLogic.Services
         public async Task<IEnumerable<MedicineDTO>> GetMedicines()
         {
             return await _context.Medicines
+                .Include(m => m.Stock)
                 .Select(m => _mapper.Map<MedicineDTO>(m))
                 .ToListAsync();
         }
@@ -59,10 +63,16 @@ namespace MedicinePlanner.BusinessLogic.Services
         public async Task<MedicineDTO> AddMedicine(MedicineDTO medicineDTO)
         {
             var medicine = _mapper.Map<Medicine>(medicineDTO);
-            await _context.Medicines.AddAsync(medicine);
+            _context.Medicines.Add(medicine);
             await _context.SaveChangesAsync();
-            medicineDTO.Id = medicine.Id;
-            return medicineDTO;
+            _context.Stocks.Add(new Stock
+            {
+                Total = 0,
+                MedicineId = medicine.Id
+            });
+            await _context.SaveChangesAsync();
+            medicine = await _context.Medicines.FirstAsync(m => m.Id == medicine.Id);
+            return _mapper.Map<MedicineDTO>(medicine);
         }
     }
 }
