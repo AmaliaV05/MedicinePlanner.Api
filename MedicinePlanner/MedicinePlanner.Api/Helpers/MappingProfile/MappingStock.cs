@@ -8,9 +8,10 @@ namespace MedicinePlanner.Api.Helpers.MappingProfile
     {
         public MappingStock()
         {
-            CreateMap<Stock, StockDTO>();
+            CreateMap<Stock, StockDTO>().ReverseMap();
             CreateMap<LoadingStock, LoadingStockDTO>();
-            CreateMap<UnloadingStock, UnloadingStockDTO>();
+            CreateMap<UnloadingStock, UnloadingStockDTO>();            
+            CreateMap<Stock, StockOperationDTO>();
         }
     }
 }

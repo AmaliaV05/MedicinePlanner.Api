@@ -9,6 +9,8 @@ namespace MedicinePlanner.Api.Helpers.MappingProfile
         public MappingMedicine()
         {
             CreateMap<Medicine, MedicineDTO>().ReverseMap();
+            CreateMap<Medicine, MedicineMlDTO>();
+            CreateMap<Medicine, StockOperationMedicineDTO>();
         }
     }
 }

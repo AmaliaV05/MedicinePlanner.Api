@@ -28,16 +28,17 @@ namespace MedicinePlanner.Api.Controllers
             return Ok(await _medicineService.GetMedicines());
         }
 
-        [HttpPut]
-        public async Task<IActionResult> PutMedicine(int idMedicine, MedicineDTO medicineDTO)
-        {
-            return Ok(await _medicineService.UpdateMedicine(idMedicine, medicineDTO));
-        }
-
         [HttpPost]
         public async Task<IActionResult> PostMedicine(MedicineDTO medicineDTO)
         {
             return Ok(await _medicineService.AddMedicine(medicineDTO));
+        }
+
+        [HttpDelete("{idMedicine}")]
+        public async Task<IActionResult> DeleteMedicine(int idMedicine)
+        {
+            await _medicineService.DeleteMedicine(idMedicine);
+            return Ok();
         }
     }
 }

@@ -15,5 +15,29 @@ namespace MedicinePlanner.Data.Data
         public DbSet<UnloadingStock> UnloadingStocks { get; set; }
         public DbSet<Planning> Plannings { get; set; }
         public DbSet<DailyPlanning> DailyPlannings { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Medicine>()
+                .HasOne(m => m.Stock)
+                .WithOne(s => s.Medicine)
+                .OnDelete(DeleteBehavior.ClientCascade);
+            modelBuilder.Entity<Stock>()
+                .HasMany(s => s.UnloadingStocks)
+                .WithOne(u => u.Stock)
+                .OnDelete(DeleteBehavior.ClientCascade);
+            modelBuilder.Entity<Stock>()
+                .HasMany(s => s.LoadingStocks)
+                .WithOne(l => l.Stock)
+                .OnDelete(DeleteBehavior.ClientCascade);
+            modelBuilder.Entity<Medicine>()
+                .HasMany(m => m.Plannings)
+                .WithOne(p => p.Medicine)
+                .OnDelete(DeleteBehavior.ClientCascade);
+            modelBuilder.Entity<Planning>()
+                .HasMany(p => p.DailyPlannings)
+                .WithOne(d => d.Planning)
+                .OnDelete(DeleteBehavior.ClientCascade);
+        }
     }
 }

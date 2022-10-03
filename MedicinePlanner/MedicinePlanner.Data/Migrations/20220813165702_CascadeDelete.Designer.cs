@@ -4,14 +4,16 @@ using MedicinePlanner.Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MedicinePlanner.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220813165702_CascadeDelete")]
+    partial class CascadeDelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,8 +31,8 @@ namespace MedicinePlanner.Data.Migrations
                     b.Property<bool>("Consumed")
                         .HasColumnType("bit");
 
-                    b.Property<double>("Dosage")
-                        .HasColumnType("float");
+                    b.Property<int>("Dosage")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("IntakeTime")
                         .HasColumnType("datetime2");
@@ -58,8 +60,8 @@ namespace MedicinePlanner.Data.Migrations
                     b.Property<DateTime>("LoadingDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("PillsNumber")
-                        .HasColumnType("float");
+                    b.Property<int>("PillsNumber")
+                        .HasColumnType("int");
 
                     b.Property<int?>("StockId")
                         .HasColumnType("int");
@@ -84,6 +86,9 @@ namespace MedicinePlanner.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Medicines");
@@ -96,7 +101,7 @@ namespace MedicinePlanner.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("EndDate")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("MedicineId")
@@ -125,8 +130,8 @@ namespace MedicinePlanner.Data.Migrations
                     b.Property<int>("MedicineId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Total")
-                        .HasColumnType("float");
+                    b.Property<int>("Total")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -143,8 +148,8 @@ namespace MedicinePlanner.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("PillsNumber")
-                        .HasColumnType("float");
+                    b.Property<int>("PillsNumber")
+                        .HasColumnType("int");
 
                     b.Property<int?>("StockId")
                         .HasColumnType("int");

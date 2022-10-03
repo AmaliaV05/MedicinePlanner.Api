@@ -26,6 +26,10 @@ namespace MedicinePlanner.Api.Middlewares
             {
                 await HandleExceptionAsync(httpContext, infe);
             }
+            catch (MedicineNotFoundException mnfe)
+            {
+                await HandleExceptionAsync(httpContext, mnfe);
+            }
         }
 
         private static async Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
@@ -35,11 +39,13 @@ namespace MedicinePlanner.Api.Middlewares
             var message = exception switch
             {
                 IdNotFoundException => exception.Message,
+                MedicineNotFoundException => exception.Message,
                 _ => exception.Message
             };
             var stack = exception switch
             {
                 IdNotFoundException => exception.StackTrace,
+                MedicineNotFoundException => exception.StackTrace,
                 _ => exception.StackTrace
             };
             await httpContext.Response.AddErrorMessage(httpContext.Response.StatusCode, message, stack);

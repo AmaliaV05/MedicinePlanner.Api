@@ -1,8 +1,8 @@
 ﻿namespace MedicinePlanner.BusinessLogic.DTOs
 {
-    public class StockDTO
+    public class StockOperationMedicineDTO
     {
         public int Id { get; set; }
-        public double Total { get; set; }
+        public string Name { get; set; }
     }
 }

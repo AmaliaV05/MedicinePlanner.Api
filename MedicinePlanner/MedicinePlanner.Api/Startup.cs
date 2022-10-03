@@ -13,6 +13,7 @@ namespace MedicinePlanner.Api
 {
     public class Startup
     {
+        readonly string MedicinePlannerOrigins = "_medicinePlannerOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -21,10 +22,21 @@ namespace MedicinePlanner.Api
         public IConfiguration Configuration { get; }
         
         public void ConfigureServices(IServiceCollection services)
-        {
+        {            
             services.AddDbContext<ApplicationDbContext>(options => 
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")) );
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MedicinePlannerOrigins,
+                                  policy =>
+                                  {
+                                      policy.WithOrigins("http://localhost:4200", "http://localhost:3000")
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod();
+                                  });
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -50,6 +62,7 @@ namespace MedicinePlanner.Api
             app.UseMiddleware<CustomExceptionMiddleware>();
 
             app.UseRouting();
+            app.UseCors(MedicinePlannerOrigins);
 
             app.UseAuthorization();
 

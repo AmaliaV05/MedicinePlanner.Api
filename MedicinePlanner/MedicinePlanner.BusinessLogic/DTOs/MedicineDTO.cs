@@ -1,5 +1,5 @@
-﻿using MedicinePlanner.Data.Models.Enum.Utils;
-using System;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MedicinePlanner.BusinessLogic.DTOs
 {
@@ -7,8 +7,8 @@ namespace MedicinePlanner.BusinessLogic.DTOs
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public MedicineType Type { get; set; }
         public DateTime? ExpirationDate { get; set; }
         public StockDTO Stock { get; set; }
+        public IEnumerable<PlanningDTO> Plannings { get; set; }
     }
 }

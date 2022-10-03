@@ -32,6 +32,7 @@ namespace MedicinePlanner.BusinessLogic.Services
             var messages = new List<string>();
             var medicines = await _context.Medicines
                 .Where(m => m.Plannings.Count > 0)
+                .OrderBy(m => m.Id)
                 .Include(m => m.Plannings)
                 .ThenInclude(d => d.DailyPlannings.Where(d => d.IntakeTime >= DateTime.Now && d.IntakeTime <= DateTime.Now.AddDays(5)))
                 .Include(m => m.Stock)
@@ -46,7 +47,7 @@ namespace MedicinePlanner.BusinessLogic.Services
                     var numberOfDays = dailyPlanning.IntakeTime.Date.Subtract(DateTime.Now).TotalDays;
                     if (stock <= 0 && numberOfDays >= 1)
                     {
-                        messages.Add(string.Format("{0} will be gone in {1} days", medicine.Name, (int)numberOfDays));
+                        messages.Add(string.Format("You will run out of {0} in {1} days", medicine.Name, (int)numberOfDays));
                     }
                 }
             }
@@ -58,8 +59,7 @@ namespace MedicinePlanner.BusinessLogic.Services
             var messages = new List<string>();
             var medicines = await _context.Medicines
                 .Where(m => m.Plannings.Count > 0)
-                .Include(m => m.Plannings.Where(p => p.StartDate <= DateTime.Now))                
-                .AsSplitQuery()
+                .Include(m => m.Plannings.Where(p => p.StartDate <= DateTime.Now))
                 .ToListAsync();
             foreach (Medicine medicine in medicines)
             {
@@ -81,8 +81,10 @@ namespace MedicinePlanner.BusinessLogic.Services
             var beforeConsumption = DateTime.Now.AddMinutes(15);            
             var dailyPlannings = await _context.DailyPlannings                
                 .Where(d => d.IntakeTime <= beforeConsumption && d.IntakeTime >= DateTime.Now && d.Consumed == false)
+                .OrderBy(m => m.Id)
                 .Include(d => d.Planning)
                 .ThenInclude(p => p.Medicine)
+                .AsSplitQuery()
                 .ToListAsync();
             foreach (DailyPlanning dailyPlanning in dailyPlannings)
             {

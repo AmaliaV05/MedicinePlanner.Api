@@ -7,7 +7,7 @@ namespace MedicinePlanner.Data.Models
     {
         public int Id { get; set; }
         public DateTime IntakeTime { get; set; }
-        public int Dosage { get; set; }
+        public double Dosage { get; set; }
         public bool Consumed { get; set; }
         public PlanningMessage Message { get; set; }
         public Planning Planning { get; set; }

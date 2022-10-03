@@ -1,7 +1,5 @@
-﻿using MedicinePlanner.BusinessLogic.DTOs;
-using MedicinePlanner.BusinessLogic.Interfaces;
+﻿using MedicinePlanner.BusinessLogic.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MedicinePlanner.Api.Controllers
@@ -15,36 +13,18 @@ namespace MedicinePlanner.Api.Controllers
         public PlanningsController(IPlanningService planningService)
         {
             _planningService = planningService;
-        }
+        }        
 
-        [HttpGet("{idMedicine}")]
-        public async Task<IActionResult> GetPlanning(int idMedicine)
+        [HttpGet("{idPlanning}")]
+        public async Task<IActionResult> GetPlanning(int idPlanning)
         {
-            return Ok(await _planningService.GetPlanning(idMedicine));
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetPlannings()
-        {
-            return Ok(await _planningService.GetPlannings());
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> PostPlanning(int idMedicine, PlanningDTO planningDTO)
-        {
-            return Ok(await _planningService.AddPlanning(idMedicine, planningDTO));
+            return Ok(await _planningService.GetPlanning(idPlanning));
         }
 
         [HttpPost("Approve-Planning")]
         public async Task<IActionResult> ApproveNewPlanning(int idMedicine)
         {
             return Ok(await _planningService.ApproveNewPlanning(idMedicine));
-        }
-
-        [HttpPost("Daily-Planning")]
-        public async Task<IActionResult> PostDailyPlanning(int idPlanning, IEnumerable<DailyPlanningDTO> dailyPlanningDTO)
-        {
-            return Ok(await _planningService.AddDailyPlanning(idPlanning, dailyPlanningDTO));
         }
     }
 }
